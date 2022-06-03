@@ -5,6 +5,7 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
+
 const createCustomElement = (element, className, innerText) => {
   const e = document.createElement(element);
   e.className = className;
@@ -39,3 +40,5 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 };
 
 window.onload = () => { };
+
+// iniciando 

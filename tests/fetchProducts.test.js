@@ -24,7 +24,7 @@ describe('1 - Teste a função fetchProducts', () => {
   })
   it('Compara os dados do "computerSearch" da api da url', async () => {
     await fetchProducts('computador');
-    expect(fetch).toEqual(computadorSearch);
+    expect(fetch).toEqual(computadorSearch.results);
   })
 });
 

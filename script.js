@@ -1,5 +1,6 @@
-/* const { fetchProducts } = require("./helpers/fetchProducts");
- */
+// const { consoleLog } = require("mocha/lib/reporters/base");
+// const { fetchProducts } = require("./helpers/fetchProducts");
+ 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -14,23 +15,6 @@ const createCustomElement = (element, className, innerText) => {
   return e;
 };
 
-const productList = async () => {
-  const itens = document.querySelector('.items')
-  const result = (await fetchProducts ('computador')).results;
-    result.forEach((item) => {
-      const {id, title, thumbnail} = item;
-      const a = createCartItemElement ({
-        sku: id,
-        name: title,
-        image: thumbnail,
-      });
-      const itemappend = document.getElementsByClassName('item');
-      itens.appendChild(itemappend);
-    });
-}
-
-window.onload = productList ();
-
 const createProductItemElement = ({ sku, name, image }) => {
   const section = document.createElement('section');
   section.className = 'item';
@@ -43,6 +27,21 @@ const createProductItemElement = ({ sku, name, image }) => {
   return section;
 };
 
+const productList = async () => {
+  const itens = document.querySelector('.items');
+  const result = await fetchProducts('computador');
+    result.forEach((item) => {
+      const { id, title, thumbnail } = item;
+      const a = createProductItemElement({
+        sku: id,
+        name: title,
+        image: thumbnail,
+      });
+      itens.appendChild(a);
+    });
+};
+
+window.onload = productList();
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {

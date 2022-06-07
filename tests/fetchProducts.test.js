@@ -22,5 +22,9 @@ describe('1 - Teste a função fetchProducts', () => {
     await fetchProducts('computador');
     expect(await fetchProducts()).toEqual(new Error('You must provide an url'));
   })
+  it('Compara os dados do "computerSearch" da api da url', async () => {
+    await fetchProducts('computador');
+    expect(fetch).toEqual(computadorSearch);
+  })
 });
 

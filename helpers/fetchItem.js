@@ -1,12 +1,11 @@
-const fechItemId = (ItemID) => `https://api.mercadolibre.com/items/${ItemID}`
+const fechItemId = (ItemID) => `https://api.mercadolibre.com/items/${ItemID}`;
 
-
-const fetchItem = async (ItemID) =>  {
+const fetchItem = async (ItemID) => {
   try {
     const url = fechItemId(ItemID);
-    const result = await fetch(url)
-    const data = await result.json()
-    return data
+    const result = await fetch(url);
+    const data = await result.json();
+    return data;
   } catch (error) {
     return error;
   }

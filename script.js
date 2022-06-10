@@ -24,8 +24,33 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
-
   return section;
+};
+
+const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+
+const createCartItemElement = ({ sku, name, salePrice }) => {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+};
+
+const productCart = () => {
+  const cartItems = document.querySelector('.cart__items');
+  const button = document.querySelectorAll('.item__add');
+  button.forEach((btn) => btn.addEventListener('click', async () => {
+  const parent = btn.parentNode;
+  const cartInfo = await fetchItem(getSkuFromProductItem(parent));
+  const { id, title, price } = cartInfo;
+  const a = createCartItemElement({
+    sku: id,
+    name: title,
+    salePrice: price,
+  });
+  cartItems.appendChild(a);
+}));
 };
 
 const productList = async () => {
@@ -43,39 +68,13 @@ const productList = async () => {
     productCart();
 };
 
-
-
-const cartItemClickListener = (event) => {
+/* const cartItemClickListener = (event) => {
   // coloque seu código aqui
-};
+}; */
 
-const createCartItemElement = ({ sku, name, salePrice }) => {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-};
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 /* 
 window.onload = () => { }; */
-const productCart = () => {
-  const cartItems = document.querySelector('.cart__items')
-  const button = document.querySelectorAll('.item__add');
-  button.forEach((btn) =>  btn.addEventListener('click', async () => {
-  const parent = btn.parentNode;
-  console.log(parent,'parent')
-  const cartInfo = await fetchItem(getSkuFromProductItem(parent));
-  console.log(cartInfo, 'posfetch')
-  const { id, title, price } = cartInfo;
-  const a = createCartItemElement({
-    sku: id,
-    name: title,
-    salePrice: price
-  })
-  cartItems.appendChild(a)
-}))
-};
+
 window.onload = () => {
   productList();
-}
+};

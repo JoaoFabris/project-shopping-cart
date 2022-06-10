@@ -1,6 +1,6 @@
 // const { consoleLog } = require("mocha/lib/reporters/base");
 // const { fetchProducts } = require("./helpers/fetchProducts");
- 
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -24,6 +24,7 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
+
   return section;
 };
 
@@ -39,10 +40,10 @@ const productList = async () => {
       });
       itens.appendChild(a);
     });
+    productCart();
 };
 
-window.onload = productList();
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+
 
 const cartItemClickListener = (event) => {
   // coloque seu código aqui
@@ -55,5 +56,26 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   li.addEventListener('click', cartItemClickListener);
   return li;
 };
-
-window.onload = () => { };
+const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+/* 
+window.onload = () => { }; */
+const productCart = () => {
+  const cartItems = document.querySelector('.cart__items')
+  const button = document.querySelectorAll('.item__add');
+  button.forEach((btn) =>  btn.addEventListener('click', async () => {
+  const parent = btn.parentNode;
+  console.log(parent,'parent')
+  const cartInfo = await fetchItem(getSkuFromProductItem(parent));
+  console.log(cartInfo, 'posfetch')
+  const { id, title, price } = cartInfo;
+  const a = createCartItemElement({
+    sku: id,
+    name: title,
+    salePrice: price
+  })
+  cartItems.appendChild(a)
+}))
+};
+window.onload = () => {
+  productList();
+}

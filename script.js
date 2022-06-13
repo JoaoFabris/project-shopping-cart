@@ -1,6 +1,10 @@
 // const { consoleLog } = require("mocha/lib/reporters/base");
 // const { fetchProducts } = require("./helpers/fetchProducts");
 
+const cartItemClickListener = (event) => {  
+  event.target.remove();
+};
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -68,9 +72,6 @@ const productList = async () => {
     productCart();
 };
 
-/* const cartItemClickListener = (event) => {
-  // coloque seu código aqui
-}; */
 
 /* 
 window.onload = () => { }; */

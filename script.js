@@ -72,7 +72,6 @@ const productList = async () => {
     productCart();
 };
 
-
 /* 
 window.onload = () => { }; */
 

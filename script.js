@@ -1,9 +1,8 @@
 // const { consoleLog } = require("mocha/lib/reporters/base");
 // const { fetchProducts } = require("./helpers/fetchProducts");
+/* const saveCartItems = require("./helpers/saveCartItems"); */
+  
 
-const cartItemClickListener = (event) => {  
-  event.target.remove();
-};
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -31,7 +30,38 @@ const createProductItemElement = ({ sku, name, image }) => {
   return section;
 };
 
+const productList = async () => {
+  const itens = document.querySelector('.items');
+  const result = await fetchProducts('computador');
+  result.forEach((item) => {
+    const { id, title, thumbnail } = item;
+    const a = createProductItemElement({
+      sku: id,
+      name: title,
+      image: thumbnail,
+    });
+    itens.appendChild(a);
+  });
+  productCart();
+};
+
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+
+const sumPrice = document.querySelector('.total-price')
+const totalPrice = () => {
+  const items = document.querySelectorAll('.cart__item');
+  let total = 0;
+  items.forEach((element) => {
+    const price = Number(element.innerText.split('$')[1]);
+    total += price;
+  });
+  sumPrice.innerText = total;
+};
+
+const cartItemClickListener = (event) => {
+  event.target.remove();
+  totalPrice()
+};
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
@@ -45,36 +75,28 @@ const productCart = () => {
   const cartItems = document.querySelector('.cart__items');
   const button = document.querySelectorAll('.item__add');
   button.forEach((btn) => btn.addEventListener('click', async () => {
-  const parent = btn.parentNode;
-  const cartInfo = await fetchItem(getSkuFromProductItem(parent));
-  const { id, title, price } = cartInfo;
-  const a = createCartItemElement({
-    sku: id,
-    name: title,
-    salePrice: price,
-  });
-  cartItems.appendChild(a);
-}));
-};
-
-const productList = async () => {
-  const itens = document.querySelector('.items');
-  const result = await fetchProducts('computador');
-    result.forEach((item) => {
-      const { id, title, thumbnail } = item;
-      const a = createProductItemElement({
-        sku: id,
-        name: title,
-        image: thumbnail,
-      });
-      itens.appendChild(a);
+    const parent = btn.parentNode;
+    const cartInfo = await fetchItem(getSkuFromProductItem(parent));
+    const { id, title, price } = cartInfo;
+    const a = createCartItemElement({
+      sku: id,
+      name: title,
+      salePrice: price,
     });
-    productCart();
+    cartItems.appendChild(a);
+    saveCartItems(cartItems.innerHTML);
+    totalPrice()
+  }));
+  
 };
 
-/* 
-window.onload = () => { }; */
+const limparLi = () => {
+  document.querySelector('.cart__items').addEventListener('click', cartItemClickListener);
+};
 
 window.onload = () => {
   productList();
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = getSavedCartItems();
+  limparLi();
 };

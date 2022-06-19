@@ -2,6 +2,8 @@
 // const { fetchProducts } = require("./helpers/fetchProducts");
 /* const saveCartItems = require("./helpers/saveCartItems"); */
 
+const cartItems = document.querySelector('.cart__items');
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -92,7 +94,6 @@ const limparLi = () => {
 
 window.onload = () => {
   productList();
-  const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = getSavedCartItems();
   limparLi();
 };

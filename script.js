@@ -28,21 +28,6 @@ const createProductItemElement = ({ sku, name, image }) => {
   return section;
 };
 
-const productList = async () => {
-  const itens = document.querySelector('.items');
-  const result = await fetchProducts('computador');
-  result.forEach((item) => {
-    const { id, title, thumbnail } = item;
-    const a = createProductItemElement({
-      sku: id,
-      name: title,
-      image: thumbnail,
-    });
-    itens.appendChild(a);
-  });
-  productCart();
-};
-
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const sumPrice = document.querySelector('.total-price');
@@ -84,6 +69,21 @@ const productCart = () => {
     saveCartItems(cartItems.innerHTML);
     totalPrice();
   }));
+};
+
+const productList = async () => {
+  const itens = document.querySelector('.items');
+  const result = await fetchProducts('computador');
+  result.forEach((item) => {
+    const { id, title, thumbnail } = item;
+    const a = createProductItemElement({
+      sku: id,
+      name: title,
+      image: thumbnail,
+    });
+    itens.appendChild(a);
+  });
+  productCart();
 };
 
 const limparLi = () => {

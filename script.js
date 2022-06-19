@@ -1,8 +1,6 @@
 // const { consoleLog } = require("mocha/lib/reporters/base");
 // const { fetchProducts } = require("./helpers/fetchProducts");
 /* const saveCartItems = require("./helpers/saveCartItems"); */
-  
-
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -47,7 +45,7 @@ const productList = async () => {
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const sumPrice = document.querySelector('.total-price')
+const sumPrice = document.querySelector('.total-price');
 const totalPrice = () => {
   const items = document.querySelectorAll('.cart__item');
   let total = 0;
@@ -60,7 +58,7 @@ const totalPrice = () => {
 
 const cartItemClickListener = (event) => {
   event.target.remove();
-  totalPrice()
+  totalPrice();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -72,7 +70,6 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 };
 
 const productCart = () => {
-  const cartItems = document.querySelector('.cart__items');
   const button = document.querySelectorAll('.item__add');
   button.forEach((btn) => btn.addEventListener('click', async () => {
     const parent = btn.parentNode;
@@ -85,9 +82,8 @@ const productCart = () => {
     });
     cartItems.appendChild(a);
     saveCartItems(cartItems.innerHTML);
-    totalPrice()
+    totalPrice();
   }));
-  
 };
 
 const limparLi = () => {

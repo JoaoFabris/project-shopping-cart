@@ -37,7 +37,7 @@ const totalPrice = () => {
   const items = document.querySelectorAll('.cart__item');
   let total = 0;
   items.forEach((element) => {
-    const price = Number(element.innerText.split('$')[1]);
+    const price = parseFloat(element.innerText.split('$')[1]);
     total += price;
   });
   sumPrice.innerText = total;
@@ -92,8 +92,16 @@ const limparLi = () => {
   document.querySelector('.cart__items').addEventListener('click', cartItemClickListener);
 };
 
+const emptyBtncart = () => {
+  const emptyBtn = document.querySelector('.empty-cart');
+  emptyBtn.addEventListener('click', () => {
+    cartItems.innerHTML = '';
+  });
+};
+
 window.onload = () => {
   productList();
   cartItems.innerHTML = getSavedCartItems();
-  limparLi();
+  limparLi()
+  emptyBtncart();
 };

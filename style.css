@@ -148,6 +148,8 @@ body {
   background-color: rgb(249, 249, 246);
 }
 
-.total-price {
-  text-align: center;
+.subtotal {
+  justify-content: center;
+  display: flex;
+  padding: 15px;
 }

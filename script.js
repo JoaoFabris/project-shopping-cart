@@ -102,6 +102,6 @@ const emptyBtncart = () => {
 window.onload = () => {
   productList();
   cartItems.innerHTML = getSavedCartItems();
-  limparLi()
+  limparLi();
   emptyBtncart();
 };

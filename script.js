@@ -99,9 +99,20 @@ const emptyBtncart = () => {
   });
 };
 
+const loadingAlert = async () => {
+ const alert = document.createElement('h1');
+ const section = document.querySelector('.items');
+ alert.innerText = 'carregando...';
+ alert.classList = 'loading';
+ section.appendChild(alert);
+ await fetchProducts('computador');
+ alert.remove();
+};
+
 window.onload = () => {
   productList();
   cartItems.innerHTML = getSavedCartItems();
   limparLi();
   emptyBtncart();
+  loadingAlert();
 };

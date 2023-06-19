@@ -1,4 +1,3 @@
-Neste Projeto, coloquei em prática as ferramentas e metodologias:
--> JavaScrpit Assíncrono - Promises e fetch;
+In this Project, I put into practice the tools and methodologies: -> Asynchronous JavaScrpit - Promises and fetch;
 
--> Testes assíncronos;
+-> Asynchronous testes;
